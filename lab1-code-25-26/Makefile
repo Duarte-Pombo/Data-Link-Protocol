@@ -18,7 +18,7 @@ RX_FILE = penguin-received.gif
 
 # Main
 .PHONY: all
-all: main cable
+all: main bin/cable
 
 main: $(SRC)/*.c
 	$(CC) $(CFLAGS) -o $(BIN)/$@ $^
@@ -40,8 +40,8 @@ cable: $(CABLE)/cable.c
 	$(CC) $(CFLAGS) -o $(BIN)/$@ $^
 
 .PHONY: run_cable
-run_cable: cable
-	@which -s socat || { echo "Error: Could not find socat. Install socat and try again."; exit 1; }
+run_cable: bin/cable
+	@which -v socat || { echo "Error: Could not find socat. Install socat and try again."; exit 1; } #@wich -s socat > ubuntu
 	sudo ./$(BIN)/cable
 
 # Clean
